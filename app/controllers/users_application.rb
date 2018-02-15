@@ -4,7 +4,7 @@ class UsersController < ApplicationController
     if !logged_in?
       erb :'users/signup'
     else
-      redirect to '/'
+      redirect to '/books'
     end
   end
 
@@ -31,7 +31,7 @@ class UsersController < ApplicationController
     user = User.find_by(:email => params[:email])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect to '/books'
+      redirect '/books'
     else
       redirect to '/signup'
     end

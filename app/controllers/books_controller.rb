@@ -15,7 +15,7 @@ class BooksController < ApplicationController
       erb :'books/new'
     else
       redirect to '/'
-    end 
+    end
   end
 
   post '/books' do
@@ -27,6 +27,17 @@ class BooksController < ApplicationController
     end
   end
 
-
+  get '/books/:id' do
+    @book = Book.find_by_id(params[:id])
+    if @book
+      if logged_in? && @book.user_id == current_user.id
+        erb :'books/show'
+      else
+        redirect to '/books'
+      end
+    else
+      redirect to '/books'
+    end
+  end
 
 end

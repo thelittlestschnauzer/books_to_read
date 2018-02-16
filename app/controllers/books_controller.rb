@@ -3,7 +3,7 @@ class BooksController < ApplicationController
   get '/books' do
     if logged_in?
       @user = current_user
-      @books = @user.books.all
+      @books = Book.all
       erb :'books/index'
     else
       redirect to '/'
@@ -19,13 +19,10 @@ class BooksController < ApplicationController
   end
 
   post '/books' do
-    if params[:title] == ""
-      redirect to '/books/new'
-    else
-      @book = current_user.books.create(title: params[:title], author: params[:author], description: params[:description])
+      @book = Book.create(title: params[:title], author: params[:author], description: params[:description])
       redirect to "/books/#{@book.id}"
-    end
   end
+
 
   get '/books/:id' do
     @book = Book.find_by_id(params[:id])
@@ -68,5 +65,5 @@ class BooksController < ApplicationController
       redirect to '/books'
     end
   end
-  
+
 end

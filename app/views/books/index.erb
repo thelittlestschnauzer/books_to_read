@@ -2,7 +2,9 @@
   <h3> Welcome, <%=@user.username%> Here is the list of books you want to read</h3>
 
     <% @books.each_with_index do |book, index| %>
-    <a href="/books/<%= book.id %>"><%= index + 1%>.<%= book.title%></a>
+    <a href="/books/<%= book.id %>"><strong><%= index + 1%>.</strong> <%= book.title%></a>
     <% end %>
-    <a href="/books/new"><button type="submit">New Book</button></a>
+    <br></br>
+
+    <a href="/books/new"><button type="submit">Add A Book</button></a>
 </div>

@@ -3,7 +3,7 @@ class BooksController < ApplicationController
   get '/books' do
     if logged_in?
       @user = current_user
-      @books = Book.all
+      @books = @user.books.all
       erb :'books/index'
     else
       redirect to '/'
@@ -19,10 +19,13 @@ class BooksController < ApplicationController
   end
 
   post '/books' do
-      @book = Book.create(title: params[:title], author: params[:author], description: params[:description])
+    if params[:title] == ""
+      redirect to '/books/new'
+    else
+      @book = current_user.books.create(title: params[:title], author: params[:author], description: params[:description])
       redirect to "/books/#{@book.id}"
+    end
   end
-
 
   get '/books/:id' do
     @book = Book.find_by_id(params[:id])
@@ -39,10 +42,14 @@ class BooksController < ApplicationController
 
   get '/books/:id/edit' do
     @book = Book.find_by_id(params[:id])
-    if logged_in? && @book.user_id == current_user.id
-      erb :'/books/edit'
+    if @book
+      if logged_in? && @book.user_id == current_user.id
+        erb :'books/edit'
+      else
+        redirect to '/books'
+      end
     else
-      redirect to '/'
+      redirect to '/books'
     end
   end
 
@@ -51,8 +58,11 @@ class BooksController < ApplicationController
       redirect to "/books/#{params[:id]}/edit"
     else
       @book = Book.find_by_id(params[:id])
-      @book.update(title: params[:title], author: params[:author], description: params[:description])
-      redirect to "/books/#{params[:id]}"
+      @book.title = params[:title]
+      @book.author = params[:author]
+      @book.description = params[:description]
+      @book.save
+      redirect "/books/#{@book.id}"
     end
   end
 
@@ -65,5 +75,4 @@ class BooksController < ApplicationController
       redirect to '/books'
     end
   end
-
 end

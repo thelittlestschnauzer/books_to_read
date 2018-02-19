@@ -3,7 +3,7 @@
 
     <p><% @books.each.with_index(1) do |book, index| %></p>
   <div>
-    <p><%= index%>. <%= book.title %> <% book.id %></p>
+    <p><%= index%>. <%= book.title %></p>
       <a href="/books/<%= book.id %>/edit"> Edit this Book Title</a>
       <br></br>
     <% end %>

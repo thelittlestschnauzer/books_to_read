@@ -1,5 +1,5 @@
 <div>
-  <h3> Welcome, <%=@user.username%> Here is the list of books you want to read</h3>
+  <h3> Welcome, <%=@user.username%> here is the list of books you want to read</h3>
 
     <p><% @books.each.with_index(1) do |book, index| %></p>
   <div>
@@ -9,4 +9,6 @@
     <% end %>
 
     <a href="/books/new"><button type="submit">Add A Book</button></a>
+    <a href="/"><button type="submit">Home</button></a>
+
 </div>

@@ -5,6 +5,9 @@ Overview
   then as you read them you can delete them off of your list! Never forget a book you want to read again!
 
 How to Install Books to Read App
+
+  fork and clone from github
+
   In your terminal execute:
     run bundle install
     run rake:db:migrate
@@ -23,4 +26,5 @@ Contributions
 
 License
 
-  This project is available as open source under the terms of the MIT license. 
+  Copyright (c) 2018 Dana O'Neil
+  This project is available as open source under the terms of the MIT license.

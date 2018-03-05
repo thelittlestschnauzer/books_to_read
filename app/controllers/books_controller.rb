@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-
+  
   get '/books' do
     if logged_in?
       @user = current_user
@@ -20,6 +20,7 @@ class BooksController < ApplicationController
 
   post '/books' do
     if params[:title] == ""
+      flash[:no_title] = "Please enter a title"
       redirect to '/books/new'
     else
       @book = current_user.books.create(title: params[:title], author: params[:author], description: params[:description])
